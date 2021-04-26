@@ -1,9 +1,15 @@
 import './App.css';
+import SearchBar from './features/searchBar/SearchBar';
 
-function App() {
+function App(props) {
+
   return (
-    <div className="App">
-    </div>
+    <>
+      <nav>
+        <img src="" alt=""/>
+        <SearchBar />
+      </nav>
+    </>
   );
 }
 
