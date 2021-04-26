@@ -13,5 +13,6 @@ const searchBar = createSlice({
   }
 })
 
-export const { setSearchTerm, clearSearchTerm } = searchBar.actions
-export default searchBar.reducer
+
+export const { setSearchTerm, clearSearchTerm } = searchBar.actions;
+export default searchBar.reducer;
