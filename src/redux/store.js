@@ -1,5 +1,7 @@
 import { createStore } from 'redux';
 
-export const store = createStore({
+import { searchBarReducer } from './searchBar/searchBarSlice';
 
+export const store = createStore({
+  searchBar: searchBarReducer,
 });
