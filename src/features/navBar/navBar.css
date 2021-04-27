@@ -52,7 +52,7 @@ nav {
 /* Dark theme */
 
 .nav-dark {
-  background-color: var(--secondary-dark);
+  background-color: #4F4F64;
 }
 
 .nav-dark #logo-title {

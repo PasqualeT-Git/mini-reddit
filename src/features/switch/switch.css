@@ -70,7 +70,7 @@ label.switch > span:after {
 }
 
 label.switch-dark > span:after {
-  background-color: #0A1945
+  background-color: #4F4F64
 }
 
 label.switch > input[type="checkbox"]:checked ~ span:before,
