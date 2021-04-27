@@ -1,4 +1,4 @@
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 420px) {
   #search_term {
     display: none;
   }
@@ -20,5 +20,21 @@
   #search_term-button img {
     width: 14px;
     margin-top: 2px;
+  }
+
+  .dark-theme #search_term-button {
+    border: 1px solid var(--primary-dark);
+    background: none;
+    box-shadow: 0 0 4px #a2d3f6; 
+  }
+
+  .dark-theme #search_term-button:active {
+    background-color: #a2d3f64a;
+  }
+
+  .dark-theme #search_term-button img {
+    filter: brightness(0) saturate(100%) invert(82%) 
+            sepia(5%) saturate(2866%) hue-rotate(180deg) 
+            brightness(97%) contrast(98%) drop-shadow(0 0 3px #a2d3f6);
   }
 }

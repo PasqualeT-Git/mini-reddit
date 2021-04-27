@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { setSearchTerm, clearSearchTerm } from '../../redux/searchBar/searchBarSlice';
+import { getSwitchState } from '../../redux/switch/switchSlice';
 import './searchBar.css';
 
 const SearchBar = () => {
   const [ term, setTerm ] = useState("");
   const dispatch = useDispatch();
+  const switchStatus = useSelector(getSwitchState);
 
   const onSearchHandler = (e) => {
     setTerm(e.target.value)
@@ -19,7 +21,7 @@ const SearchBar = () => {
 
   return (
     <>
-      <div id="search-container">
+      <div className={switchStatus && "dark-theme"}>
         <input 
           id="search_term"
           type="text" 
