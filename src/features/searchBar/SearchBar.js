@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { setSearchTerm, clearSearchTerm } from '../../redux/searchBar/searchBarSlice';
 import './searchBar.css';
 
-
 const SearchBar = () => {
   const [ term, setTerm ] = useState("");
   const dispatch = useDispatch();
@@ -22,14 +21,16 @@ const SearchBar = () => {
     <>
       <div id="search-container">
         <input 
-          id="searchTerm"
+          id="search_term"
           type="text" 
-          value={term} 
+          value={term}
           onChange={onSearchHandler}/>
-        <input 
-          type="submit" 
-          onClick={onClearHandler}
-          id="searchTerm-submit"/>
+       
+          <button 
+            onClick={onClearHandler}
+            id="search_term-button">
+            <img src={process.env.PUBLIC_URL + 'media/magnifying_icon.svg'}  alt=""/>
+          </button>
       </div>
     </>
   )
