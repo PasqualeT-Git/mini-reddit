@@ -1,5 +1,4 @@
-nav {
-  background-color: var(--secondary-light);
+nav, .nav-dark {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -7,6 +6,10 @@ nav {
   top: 0;
   width: 100vw;
   height: 54px;
+}
+
+nav {
+  background-color: var(--secondary-light);
 }
 
 #mini-reddit-logo {
@@ -25,19 +28,41 @@ nav {
   display: flex;
 }
 
+#logo-title p {
+  color: var(--primary-light);
+}
+
 .switch-container {
-  width: 90px;
+  width: 75px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .icon-switch {
-  width: 18px;
+  width: 16px;
 }
 
 @media only screen and (max-width: 420px) {
   #logo-title {
     font-size: 16px;
   }
+}
+
+/* Dark theme */
+
+.nav-dark {
+  background-color: var(--secondary-dark);
+}
+
+.nav-dark #logo-title {
+  color: var(--text-dark);
+}
+
+.nav-dark #logo-title p {
+  text-shadow: 0 0 10px #fff, 0 0 1px #a2d3f6;
+}
+
+.nav-dark #mini-reddit-logo, .nav-dark .icon-switch {
+  filter: drop-shadow(0 0 1px #a2d3f6);
 }
