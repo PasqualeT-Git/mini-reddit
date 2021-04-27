@@ -14,11 +14,11 @@ const Switch = () => {
   }
 
   return (
-    <label className="switch">
+    <label className={!state ? "switch-dark" : "switch"}>
       <input type="checkbox" onClick={handleSwitch}/>
       <span></span> 
     </label>
-)
+  )
 }
 
 export default Switch

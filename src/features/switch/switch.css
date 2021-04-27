@@ -1,4 +1,4 @@
-label.switch {  
+label.switch, label.switch-dark {  
   text-align: left;
   width: 30px;
   height: calc(30px / 2);
@@ -9,18 +9,21 @@ label.switch {
   cursor: pointer;
 }
 
-label.switch > span {
+label.switch > span, label.switch-dark > span {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-label.switch > input[type="checkbox"] {
+label.switch > input[type="checkbox"], label.switch-dark > input[type="checkbox"] {
   opacity: 0;
   position: absolute;
 } 
 
-label.switch > span:before, label.switch > span:after {
+label.switch > span:before,
+label.switch > span:after,
+label.switch-dark > span:before,
+label.switch-dark > span:after {
   content: "";
   cursor: pointer;
   position: absolute;
@@ -34,11 +37,12 @@ label.switch > span:before, label.switch > span:after {
   box-shadow: 0 0 0 4px #fff;
 } */
 
-label.switch > span {
+label.switch > span, label.switch-dark > span {
   border-radius: 60px;    
 }
 
-label.switch > span:before {
+label.switch > span:before,
+label.switch-dark > span:before {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -49,23 +53,33 @@ label.switch > span:before {
   opacity: 1;
 }
 
-label.switch > span:after{
+label.switch > span:after,
+label.switch-dark > span:after {
   top: 50%;
   z-index: 3;
   transition: transform .4s cubic-bezier(0.44,-0.12, 0.07, 1.15);
-  width: calc(30px / 2);
-  height: calc(30px / 2);
+  width: calc(29px / 2);
+  height: calc(28px / 2);
   transform: translate3d(0, -50%, 0);
-  background-color: #fff;
   border-radius: 100%;
   box-shadow: 0 1px 5px rgba(0, 0, 0, .2);  
 }
 
-label.switch > input[type="checkbox"]:checked ~ span:before {
+label.switch > span:after {
+  background-color: #fff;
+}
+
+label.switch-dark > span:after {
+  background-color: #0A1945
+}
+
+label.switch > input[type="checkbox"]:checked ~ span:before,
+label.switch-dark > input[type="checkbox"]:checked ~ span:before {
   transform: scale(0);
   opacity: .7;
 }
 
-label.switch > input[type="checkbox"]:checked ~ span:after {
+label.switch > input[type="checkbox"]:checked ~ span:after,
+label.switch-dark > input[type="checkbox"]:checked ~ span:after {
   transform: translate3d(100%, -50%, 0);
 }
