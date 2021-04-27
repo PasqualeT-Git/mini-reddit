@@ -10,5 +10,6 @@ const switchSlice = createSlice({
   }
 })
 
+export const getSwitchState = state => state.switch;
 export const { toggleSwitch } = switchSlice.actions;
 export default switchSlice.reducer;
