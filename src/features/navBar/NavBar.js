@@ -10,7 +10,7 @@ const NavBar = (props) => {
   const switchStatus = useSelector(getSwitchState);
 
   return (
-    <nav className={switchStatus && "nav-dark"}>
+    <nav className={switchStatus ? "nav-dark" : ""}>
       <div className="logo-container">
         <img src={process.env.PUBLIC_URL + '/media/logo_64.svg'} id="mini-reddit-logo" alt=""/>
         <h1 id="logo-title" >Mini-<p>Reddit</p></h1>

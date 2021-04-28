@@ -1,19 +1,58 @@
 /* Colors and fonts variables */
-:root {
-  --primary-light: #6ab9f0;
-  --secondary-light: #f5f5f5;
-  --disabled-light: #cccccc;
-  --text-ligt: #666666;
-  --primary-dark: #a2d3f6;
-  --secondary-dark: #0A1945;
-  --disabled-dark: #e0e0e0;
-  --text-dark: #f5f5f5;
+  :root {
+    --primary-light: #6ab9f0;
+    --secondary-light: #f5f5f5;
+    --disabled-light: #cccccc;
+    --text-ligt: #666666;
+    --primary-dark: #a2d3f6;
+    --secondary-dark: #0A1945;
+    --disabled-dark: #e0e0e0;
+    --text-dark: #f5f5f5;
 
-  --body-Fira: 'Fira Sans', sans-serif;
-  --body-Libre: 'Libre Franklin', sans-serif;
-}
+    --body-Fira: 'Fira Sans', sans-serif;
+    --body-Libre: 'Libre Franklin', sans-serif;
+  }
+/*  */
 
-* {
-  box-sizing: border-box;
-  margin: 0
-}
+/* Root styles */
+  * {
+    box-sizing: border-box;
+    margin: 0
+  }
+/*  */
+
+/* Global components */
+  .input_light--secondary-medium, .button--secondary-medium {
+    border-radius: 11px;
+    border: 1px solid var(--primary-light)
+  }
+
+  .input_light--secondary-medium {
+    height: 35px;
+    width: 100%;
+    padding-left:15px;
+  }
+
+  .input_light--secondary-medium:focus {
+    outline: none;
+  }
+
+  .button--secondary-medium {
+    background-color: transparent;
+    width: 70px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .button--secondary-medium::before {
+    content: "Search";
+    color: var(--primary-light);
+    font-size: 12px;
+  }
+
+  .button--secondary-medium img {
+    width: 16px;
+  }
+/*  */
