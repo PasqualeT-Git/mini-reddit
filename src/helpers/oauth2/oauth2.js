@@ -84,7 +84,7 @@ const getAccessToken = async () => {
     // Change the fulfilled promises in a JSON file
     const data = await response.json();
     // Return the data
-    return data
+    return data.access_token
     
     // Catch an error
   } catch (error) {
