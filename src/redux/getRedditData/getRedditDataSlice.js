@@ -4,11 +4,11 @@ import getRedditDataRequest from '../../helpers/API_requests/getRedditDataReques
 
 export const loadPopularSubreddits = createAsyncThunk(
   'getRedditData/loadPopularSubreddits',
-  (async () => {
-    const jsonResponse = await getRedditDataRequest(`/subreddits/popular`);
+  async () => {
+    const jsonResponse = await getRedditDataRequest(`/subreddits/popular`, {limit: 10});
     const topSubredditsArray = jsonResponse.data.children;
-    return topSubredditsArray
-  })()
+    return topSubredditsArray;
+  }
 )
 
 const initialState = {
@@ -38,7 +38,6 @@ const getRedditDataSlice = createSlice({
   }
 })
 
-export const isLoadingPopularSubreddits = state => state.getRedditData.isLoadingPopularSubreddits;
-export const selectTopSubreddits = state => state.getRedditData.popularSubreddits;
-
+export const isLoadingPopularSubreddits = (state) => state.getRedditData.isLoadingPopularSubreddits;
+export const selectPopularSubreddits = (state) => state.getRedditData.popularSubreddits;
 export default getRedditDataSlice.reducer
