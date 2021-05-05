@@ -15,13 +15,11 @@ const SideBar = () => {
   const switchStatus = useSelector(getSwitchState);
 
   useEffect(() =>{
-    dispatch(loadPopularSubreddits())
-  })
+    dispatch(loadPopularSubreddits());
+  },[dispatch])
 
   const toggleSideBar = () => {
-    const sidebar = document.querySelector('#sidebar');
-    console.log(sidebar.classList)
-    
+    const sidebar = document.querySelector('#sidebar');  
     sidebar.classList.toggle('sidebar_open');
   }
 
