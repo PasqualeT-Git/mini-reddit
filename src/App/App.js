@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import './App.css';
 import NavBar from '../features/navBar/NavBar';
 import SideBar from '../features/sideBar/SideBar';
+import Cards from '../features/cards/Cards';
 import { getSwitchState } from '../redux/switch/switchSlice';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
     <div>
       <NavBar />
       <SideBar />
+      <Cards />
     </div>
   );
 }
