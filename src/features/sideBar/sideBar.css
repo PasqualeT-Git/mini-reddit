@@ -15,7 +15,6 @@
   .sidebar_container--closed, 
   .sidebar_container-dark--closed {
     position: fixed;
-    z-index: -1;
     width: 54px;
     border-radius: 20px 0 0 20px;
     top: 70px;

@@ -1,0 +1,7 @@
+.cards_container {
+  position: relative;
+  top: 145px;
+  width: 83vw;
+  display: grid;
+  grid-row-gap: 12px;
+}
