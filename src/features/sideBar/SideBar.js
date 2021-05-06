@@ -6,7 +6,7 @@ import { getSwitchState } from'../../redux/switch/switchSlice';
 import {
   loadPopularSubreddits,
   selectPopularSubreddits
-} from '../../redux/getRedditData/getRedditDataSlice';
+} from '../../redux/getRedditData/popularSubredditsSlice';
 
 
 const SideBar = () => {
