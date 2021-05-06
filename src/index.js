@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
 
 import { store } from './redux/store';
 import './index.css';
 import App from './App/App';
 import reportWebVitals from './reportWebVitals';
+
+TimeAgo.addDefaultLocale(en)
 
 ReactDOM.render(
   <Provider store={store}>
