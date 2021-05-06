@@ -1,31 +1,31 @@
 import getAccessToken from '../oauth2/oauth2';
+import axios from 'axios';
+
 
 const getRedditDataRequest = async (endpoint, params = null) => {
-  const authorization_code = await getAccessToken()
-  const url = new URL('https://oauth.reddit.com'+ endpoint);
-
-  const headers = { 
-    'Authorization': `bearer ${authorization_code}`,
-  };
-
-  let options = {
-    method: 'GET',
-    headers: headers,
-  }
-
-  if (params) {
-    url.search = new URLSearchParams(params).toString()
+  if (!localStorage.getItem('auth_token')) {
+    const authorization_code = await getAccessToken();
+    localStorage.setItem('auth_token', authorization_code.access_token.toString())
   }
   
+  const redditOauthApi = axios.create({
+    baseURL: 'https://oauth.reddit.com',
+    headers: {'Authorization': `bearer ${localStorage.getItem("auth_token")}`}
+  })
+
+  if (params) {
+    endpoint += `?${params}`
+  }
+
   try {
-    const response = await fetch(url, options);
+    const request = await redditOauthApi.get(endpoint);
     
-    if (response.ok) {
-      return response.json();
+    if (request.status === 200) {
+      return request.data;
     }
     
   } catch (err) {
-    throw new Error(err)
+    console.log(err)
   }
 }
 
