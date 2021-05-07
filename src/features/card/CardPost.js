@@ -1,12 +1,15 @@
 import React, {useEffect} from 'react';
+import { useSelector } from 'react-redux';
 import ReactTimeAgo from 'react-time-ago';
 import millify from 'millify';
 import axios from 'axios';
 
 import './cardPost.css';
+import { getSwitchState } from '../../redux/switch/switchSlice'
 
 const CardPost = ({ups, title, author, content, comments, date, id}) => {
   let newDate = new Date(date * 1000);
+  const switchStatus = useSelector(getSwitchState);
 
   useEffect(() => {
     const postContent = document.querySelector(`#post_${id}`);
@@ -15,7 +18,7 @@ const CardPost = ({ups, title, author, content, comments, date, id}) => {
       const height = postContent.clientHeight
       let totalHeight = Math.floor(height * 100 / 30);
       if (totalHeight > 200) {
-        totalHeight -= 80;
+        totalHeight -= totalHeight/2.7;
       }
       if (totalHeight < 70) {
         totalHeight += 50
@@ -32,15 +35,17 @@ const CardPost = ({ups, title, author, content, comments, date, id}) => {
       const userIcon = userDataIcon?.split('?')[0];
   
       const image = document.querySelector(`#icon_${id}`);
-  
-      image.src = userIcon;
+      
+      if(image) {
+        image.src = userIcon;
+      }
     }
 
     fetchUserThumbnail();
   },[author, id])
 
   return (
-    <div className="card_container">
+    <div className={switchStatus ? "card_container--dark" : "card_container" }>
       <div className="votes">
         <img src={process.env.PUBLIC_URL + 'media/chevron.svg'} alt=""/>
         <span className="font-small">{millify(ups, {lowercase: true, decimalSeparator: ","})}</span>

@@ -29,7 +29,6 @@ const popularSubredditsSlice = createSlice({
       state.isLoading = false;
       state.failedToLoad = false;
       state.popularSubreddits = action.payload;
-      console.log(loadPopularSubreddits)
     },
     [loadPopularSubreddits.rejected]: (state) => {
       state.isLoading = false;

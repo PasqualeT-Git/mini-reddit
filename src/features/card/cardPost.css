@@ -1,12 +1,27 @@
 .card_container {
-  padding: 8px;
   background-color: var(--secondary-light);
+}
+
+.card_container--dark{
+  background-color: #4F4F64
+}
+
+.card_container--dark p,
+.card_container--dark span,
+.card_container--dark h4, 
+.card_container--dark time {
+  color: var(--text-dark)
+}
+
+.card_container, .card_container--dark {
+  padding: 8px;
   width: 80vw;
   position: relative;
   height: 200px;
   word-wrap: break-word;
   border-radius: 24px 0 0 24px;
   margin-left: 8px;
+  box-shadow: 2px 3px 20px rgba(0, 0, 0, .15);
 }
 
 .font-small {
@@ -37,6 +52,7 @@
 
 .author img {
   width: 20px;
+  height: 20px;
   border-radius: 50%;
   margin-left: 8px;
 }
