@@ -80,5 +80,33 @@
               sepia(5%) saturate(2866%) hue-rotate(180deg) 
               brightness(97%) contrast(98%) drop-shadow(0 0 3px #a2d3f6);
     }
+
+    /* Dropdown-list */
+      .drop_down_list {
+        margin: 0 auto;
+        top: 85%;
+        width: 80%;
+        background-color: #fff;
+        position: absolute;
+        right: 0px;
+        left: 0px;
+        border-radius: 11px;
+      }
+
+      .subreddit_hint {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px 6px;
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      .subreddit_hint #subreddit_icon {
+        width: 30px;
+        height: 30px;
+      }
+    /*  */
   }
 /*  */
+

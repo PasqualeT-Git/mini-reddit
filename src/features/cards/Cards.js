@@ -19,7 +19,7 @@ const Cards = () => {
     <div className="cards_container">
       {useSelector(isLoadingPosts) ? (
         <>
-          <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          <div className="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
           <p id="loading">Loading posts...</p>
         </>
       ) : (

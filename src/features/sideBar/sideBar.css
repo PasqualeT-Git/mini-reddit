@@ -32,7 +32,8 @@
   }
   
   .sidebar_container--closed li img, 
-  .sidebar_container-dark--closed li img {
+  .sidebar_container-dark--closed li img,
+  #subreddit_icon {
     width: 42px;
     border-radius: 50%;
     border: 0.5px solid;
