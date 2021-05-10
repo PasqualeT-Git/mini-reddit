@@ -1,0 +1,33 @@
+.filters_container, .filters_container--dark  {
+  position: relative;
+  top: 95px;
+  width: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.filter {
+  width: 75px;
+  height: 43px;
+  border-radius: 24px;
+  box-shadow: 2px 3px 2px rgb(0 0 0 / 8%);
+  display: flex;
+  place-content: center;
+}
+
+.filter-active, .filter[data-active='true'] {
+  border: 1.5px solid var(--primary-light);
+}
+
+.filters_container .filter {
+  background-color: var(--secondary-light);
+}
+
+.filters_container--dark .filter {
+  background-color: #4F4F64;
+}
+
+.filter #filter_icon {
+  width: 24px
+}
