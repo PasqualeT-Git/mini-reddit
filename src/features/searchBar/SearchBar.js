@@ -4,27 +4,32 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSearchTerm, clearSearchTerm } from '../../redux/searchBar/searchBarSlice';
 import { getSwitchState } from '../../redux/switch/switchSlice';
 import { loadPosts } from '../../redux/getRedditData/postsSlice';
+import { loadAutocompleteList, selectAutocompleteList, clearList } from '../../redux/getRedditData/autocompleteSubredditsListSlice';
 import './searchBar.css';
 
 const SearchBar = () => {
   const [ term, setTerm ] = useState("");
   const dispatch = useDispatch();
   const switchStatus = useSelector(getSwitchState);
+  let autocompleteSubredditsList = useSelector(selectAutocompleteList);
 
   const onTypingHandler = (e) => {
     setTerm(e.target.value)
+    dispatch(loadAutocompleteList(e.target.value))
   }
 
   const onSearchHandler = (e) => {
     e.preventDefault();
-    dispatch(setSearchTerm(term))
+
+    dispatch(setSearchTerm(term));
     dispatch(loadPosts(term));
+    dispatch(clearList())
   }
   
   const onClearHandler = () => {
     setTimeout(() => {
       dispatch(clearSearchTerm());
-      setTerm('')
+      setTerm("");
     },500)
   }
 
@@ -77,11 +82,10 @@ const SearchBar = () => {
                   <input 
                     className="input_light--secondary-medium"
                     type="text" 
-                    defaultValue={term}
+                    value={term}
                     onChange={onTypingHandler}
                   />
                   <button 
-                    type="submit"
                     id="modal_close_button" 
                     className="button--secondary-medium"
                     onClick={onClearHandler}
@@ -89,6 +93,23 @@ const SearchBar = () => {
                     <img src={process.env.PUBLIC_URL + 'media/magnifying_icon.svg'} alt=""/>
                   </button>
                 </form>
+                <div className={autocompleteSubredditsList?.length > 0 ? 'drop_down_list' : ""}>
+                  {autocompleteSubredditsList?.map(subreddit => {
+                    if(subreddit.kind === 't5') {
+                      return (
+                        <div key={`hint_${subreddit.data.id}`}>
+                          <div className="subreddit_hint">
+                            <img id="subreddit_icon" src={ subreddit.data.icon_img ? subreddit.data.icon_img : subreddit.data.community_icon.split('?')[0] || process.env.PUBLIC_URL + '/media/reddit_icon.png' } alt="" />
+                            <p>{subreddit.data.display_name_prefixed}</p>
+                          </div>
+                          {subreddit !== autocompleteSubredditsList[autocompleteSubredditsList.length - 1] ? (
+                            <hr style={{width: '30%', margin: '0 auto'}}/>
+                          ) : undefined}
+                        </div>
+                      )
+                    }
+                  })}
+                </div>
               </div>
             </div>
         
