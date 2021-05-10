@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import getRedditDataRequest from '../../helpers/API_requests/getRedditDataRequest';
 
 export const loadPopularSubreddits = createAsyncThunk(
-  'getRedditData/loadPopularSubreddits',
+  'popularSubreddits/loadPopularSubreddits',
   async () => {
     const jsonResponse = await getRedditDataRequest(`/subreddits/popular`, "limit=10");
     const topSubredditsArray = jsonResponse.data.children;
@@ -21,18 +21,12 @@ const popularSubredditsSlice = createSlice({
   name: 'popularSubreddits',
   initialState: initialState,
   extraReducers: {
-    [loadPopularSubreddits.pending]: (state) => {
-      state.isLoading = true;
-      state.failedToLoad = false;
-    },
+    [loadPopularSubreddits.pending]: (state) => { state.isLoading = true },
+    [loadPopularSubreddits.rejected]: (state) => { state.failedToLoad = true },
     [loadPopularSubreddits.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.failedToLoad = false;
       state.popularSubreddits = action.payload;
-    },
-    [loadPopularSubreddits.rejected]: (state) => {
-      state.isLoading = false;
-      state.failedToLoad = true;
     },
   }
 })
