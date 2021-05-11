@@ -4,8 +4,8 @@ import getRedditDataRequest from '../../helpers/API_requests/getRedditDataReques
 
 export const loadPosts = createAsyncThunk(
   'posts/loadPosts',
-  async(name) => {
-    const jsonResponse = await getRedditDataRequest(`/r/${name}.json`, 'limit=10');
+  async({name, filter}) => {
+    const jsonResponse = await getRedditDataRequest(`/r/${name}`, filter, 'limit=10');
     const posts = jsonResponse.data.children;
     return posts
   }

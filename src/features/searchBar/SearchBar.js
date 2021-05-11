@@ -5,6 +5,7 @@ import { setSearchTerm, clearSearchTerm } from '../../redux/searchBar/searchBarS
 import { getSwitchState } from '../../redux/switch/switchSlice';
 import { loadPosts } from '../../redux/getRedditData/postsSlice';
 import { loadAutocompleteList, selectAutocompleteList, clearList } from '../../redux/getRedditData/autocompleteSubredditsListSlice';
+import { storeEndpoint } from '../../redux/filters/subredditsFiltersSlice';
 import './searchBar.css';
 
 const SearchBar = () => {
@@ -19,11 +20,16 @@ const SearchBar = () => {
   }
 
   const onSearchHandler = (e) => {
+    const values = { name: term, filter: "" }
     e.preventDefault();
 
     dispatch(setSearchTerm(term));
-    dispatch(loadPosts(term));
-    dispatch(clearList())
+    dispatch(loadPosts(values));
+    dispatch(storeEndpoint(term))
+    
+    setTimeout(() => {
+      dispatch(clearList())
+    },500)
   }
   
   const onClearHandler = () => {
@@ -108,6 +114,7 @@ const SearchBar = () => {
                         </div>
                       )
                     }
+                    return undefined
                   })}
                 </div>
               </div>

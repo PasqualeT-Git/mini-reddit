@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './filters.css';
 import { getSwitchState } from '../../redux/switch/switchSlice';
-import { changeFilter } from '../../redux/filters/subredditsFiltersSlice';
+import { changeFilter, selectFilter, selectStoredEndpoint } from '../../redux/filters/subredditsFiltersSlice';
+import { loadPosts } from '../../redux/getRedditData/postsSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
   const switchStatus = useSelector(getSwitchState);
+  const filterStatus = useSelector(selectFilter);
+  const endpoint = useSelector(selectStoredEndpoint);
 
   const handleClick = (e) => {
     let target = e.target;
@@ -31,10 +34,15 @@ const Filter = () => {
     
     dispatch(changeFilter(target.id));
   }
+  
+  useEffect(() => {
+    const values = { name: endpoint, filter: filterStatus  }
+    dispatch(loadPosts(values))
+  }, [dispatch, endpoint, filterStatus])
 
   return (
     <div className={ switchStatus ? "filters_container--dark" : "filters_container" }>
-      <div className="filter" onClick={handleClick} data-active="true" id="best">
+      <div className="filter" onClick={handleClick} data-active="true" id="hot">
         <img src={process.env.PUBLIC_URL + '/media/best_icon.svg'} alt="" id="filter_icon"/>
       </div>
       <div className="filter" onClick={handleClick} data-active="false" id="top">

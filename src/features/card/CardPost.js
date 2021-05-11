@@ -29,19 +29,22 @@ const CardPost = ({ups, title, author, content, comments, date, id}) => {
   },[id])
 
   useEffect(() => {
-    const fetchUserThumbnail = async () => {
-      const response = await axios.get(`/user/${author}/about.json`);
-      const userDataIcon = response.data.data.icon_img
-      const userIcon = userDataIcon?.split('?')[0];
-  
-      const image = document.querySelector(`#icon_${id}`);
+    (async function fetchUserThumbnail() {
+      let userIcon = process.env.PUBLIC_URL + 'media/reddit_icon.png';
       
-      if(image) {
-        image.src = userIcon;
+      if(author !== "[deleted]") {
+        const response = await axios.get(`/user/${author}/about.json`);
+        const userDataIcon = response.data.data.icon_img
+        userIcon = userDataIcon?.split('?')[0];
       }
-    }
+    
+        const image = document.querySelector(`#icon_${id}`);
+        
+        if(image) {
+          image.src = userIcon;
+        }
+    })()
 
-    fetchUserThumbnail();
   },[author, id])
 
   return (
