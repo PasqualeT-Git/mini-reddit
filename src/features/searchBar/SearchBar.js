@@ -20,7 +20,7 @@ const SearchBar = () => {
   }
 
   const onSearchHandler = (e) => {
-    const values = { name: term, filter: "" }
+    const values = { name: term, filter: "hot" }
     e.preventDefault();
 
     dispatch(setSearchTerm(term));
@@ -37,6 +37,27 @@ const SearchBar = () => {
       dispatch(clearSearchTerm());
       setTerm("");
     },500)
+  }
+
+  const onClickHandler = (e) => {
+    let target = e.target;
+
+    if(e.target.nodeName === 'P' || e.target.nodeName === 'IMG'){
+      target = e.target.parentElement
+    }
+
+    const subreddit = target.parentElement.dataset.subreddit;
+    const values = { name: subreddit, filter: "hot"};
+    const modal = document.querySelector('#modal_mobile');
+
+    dispatch(loadPosts(values));
+    dispatch(storeEndpoint(values.name));
+
+    setTimeout(() => {
+      dispatch(clearList())
+    },500)
+
+    modal.style.display = 'none';
   }
 
   useEffect(() => {
@@ -102,8 +123,9 @@ const SearchBar = () => {
                 <div className={autocompleteSubredditsList?.length > 0 ? 'drop_down_list' : ""}>
                   {autocompleteSubredditsList?.map(subreddit => {
                     if(subreddit.kind === 't5') {
+                      console.log(subreddit);
                       return (
-                        <div key={`hint_${subreddit.data.id}`}>
+                        <div key={`hint_${subreddit.data.id}`} onClick={onClickHandler} data-subreddit={subreddit.data.display_name}>
                           <div className="subreddit_hint">
                             <img id="subreddit_icon" src={ subreddit.data.icon_img ? subreddit.data.icon_img : subreddit.data.community_icon.split('?')[0] || process.env.PUBLIC_URL + '/media/reddit_icon.png' } alt="" />
                             <p>{subreddit.data.display_name_prefixed}</p>
