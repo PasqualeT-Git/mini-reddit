@@ -2,17 +2,23 @@ import getAccessToken from '../oauth2/oauth2';
 import axios from 'axios';
 
 
-const getRedditDataRequest = async (endpoint, params = null) => {
-  if (!localStorage.getItem('auth_token')) {
+const getRedditDataRequest = async (endpoint = '', filter = 'hot', params = null) => {
+  if (!sessionStorage.getItem('auth_token')) {
     const authorization_code = await getAccessToken();
-    localStorage.setItem('auth_token', authorization_code.access_token.toString())
+    sessionStorage.setItem('auth_token', authorization_code.access_token.toString())
   }
   
   const redditOauthApi = axios.create({
     baseURL: 'https://oauth.reddit.com',
-    headers: {'Authorization': `bearer ${localStorage.getItem("auth_token")}`}
+    headers: {'Authorization': `bearer ${sessionStorage.getItem("auth_token")}`}
   })
 
+  endpoint += `/${filter}.json`;
+  
+  if (endpoint.match(/\/r\/\/[a-z]+.json/)){
+    endpoint = "/.json"
+  }
+  
   if (params) {
     endpoint += `?${params}`
   }
