@@ -5,7 +5,7 @@ import getRedditDataRequest from '../../helpers/API_requests/getRedditDataReques
 export const loadPopularSubreddits = createAsyncThunk(
   'popularSubreddits/loadPopularSubreddits',
   async () => {
-    const jsonResponse = await getRedditDataRequest(`/subreddits/popular`, "limit=10");
+    const jsonResponse = await getRedditDataRequest(`/subreddits/popular`, "",  "limit=10");
     const topSubredditsArray = jsonResponse.data.children;
     return topSubredditsArray;
   }

@@ -5,7 +5,7 @@ import getRedditDataRequest from '../../helpers/API_requests/getRedditDataReques
 export const loadAutocompleteList = createAsyncThunk(
   'autocompleteSubredditsList/loadAutocompleteList',
   async (term) => {
-    const jsonResponse = await getRedditDataRequest(`/api/subreddit_autocomplete_v2`, `query=${term}`);
+    const jsonResponse = await getRedditDataRequest(`/api/subreddit_autocomplete_v2`, "", `query=${term}`);
     const suggestedSubredditsList = jsonResponse.data.children
     return suggestedSubredditsList
   }
