@@ -1,3 +1,65 @@
 :root.dark-theme {
   background-color: var(--secondary-dark)
 }
+
+.login_container, .login_container--dark{
+  display: flex;
+  place-items: center;
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+  top: 110px;
+  border-radius: 12px;
+  padding: 28px;
+  flex-direction: column;
+}
+
+.login_container {
+  background-color: var(--secondary-light);
+}
+
+.login_container--dark {
+  background-color: #4F4F64
+}
+
+.login_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  margin-bottom: 48px;
+  width: 90%;
+}
+
+.login_header img {
+  width: 54px;
+}
+
+.login_container button, .login_container--dark button {
+  border: none;
+  background-color: var(--primary-light);
+  color: var(--secondary-light);
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 16px;
+  width: 30%;
+  margin-top: 48px;
+}
+
+.login_container p, .login_container--dark p {
+  font-family: var(--body-Libre);
+}
+
+.login_container--dark p {
+  color: var(--text-dark)
+}
+
+.loading_app {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 300px;
+  margin: 0 auto;
+}
