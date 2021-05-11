@@ -52,7 +52,6 @@ const SideBar = () => {
           keyColor: topSubreddit.data.key_color,
           subFullName: topSubreddit.data.name
         }
-        console.log(topSubreddit);
         const {id, name, icon, keyColor} = subredditData;
 
         return (

@@ -56,7 +56,11 @@ function App() {
                   <img src={process.env.PUBLIC_URL + '/media/reddit_robot.png'} alt="" />
                   <h1>Mini <span style={{color: "var(--primary-light)"}}>Reddit</span></h1>
                 </div>
-                <p>Hello, net surfer! <br/><br/>Mini-Reddit is a ligther version of the more famous Reddit and it has been builded as portfolio project.<br/><br/>In order to work, this web app has to comunicate with your Reddit’s account (Don’t worry, I can’t access to your password).<br/><br/>If you wish to continue, please click login and follow the steps in the next page.</p>
+                <p>Hello, net surfer! 
+                  <br/><br/>Mini-Reddit is a ligther version of the more famous Reddit, and it has been builded as portfolio project, it doesn't have any commercial purpose.
+                  <br/><br/>It is a completely open project, and you can find the source code <a href="https://github.com/PasqualeT-Git/mini-reddit">here</a> .
+                  <br/><br/>In order to work, this web app has to comunicate with your Reddit’s account (Don’t worry, I can’t access to your password).
+                  <br/><br/>If you wish to continue, please click login and follow the steps in the next page.</p>
                 <button onClick={handleLogin}>Login</button>
               </div>
             </>

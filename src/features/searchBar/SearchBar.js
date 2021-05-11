@@ -123,7 +123,6 @@ const SearchBar = () => {
                 <div className={autocompleteSubredditsList?.length > 0 ? 'drop_down_list' : ""}>
                   {autocompleteSubredditsList?.map(subreddit => {
                     if(subreddit.kind === 't5') {
-                      console.log(subreddit);
                       return (
                         <div key={`hint_${subreddit.data.id}`} onClick={onClickHandler} data-subreddit={subreddit.data.display_name}>
                           <div className="subreddit_hint">
