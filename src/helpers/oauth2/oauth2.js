@@ -16,7 +16,7 @@ const getOauth2RedditAccess = () => {
   // Check if the url includes the string 'state=request_'
   if (!window.location.search.includes(`state=request_`)) {
     // Store the state variable in the local storage.
-    localStorage.setItem('state', state.toString())
+    sessionStorage.setItem('state', state.toString())
     // Redirect the user at the given path with the variables, assigned above, as params.
     const redirectPath = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=code&state=${state}&redirect_uri=${redirectURI}&duration=permanent&scope=${scopes}&raw_json=1`;
     return window.location.assign(redirectPath)
@@ -33,12 +33,12 @@ const getOauth2RedditAccess = () => {
     const stateFromParams = urlParams.get('state');
 
     // Get state previously stored in local storage
-    const stateFromLocalStorage = localStorage.getItem('state')
+    const stateFromSessionStorage = sessionStorage.getItem('state')
     
     // Check if the state from the params matches with the one from local storage
-    if (stateFromLocalStorage === stateFromParams) {
+    if (stateFromSessionStorage === stateFromParams) {
       // Remove the state from local storage
-      localStorage.clear();
+      sessionStorage.clear();
       // Return the authorization_code
       return code
     }
@@ -50,6 +50,7 @@ const getOauth2RedditAccess = () => {
     }
 
     // Throw an error if state from params and state from local storage don't match
+    console.log('no match');
     throw new Error("The state returned from params doesn't match the one in local")
   }
 }
@@ -57,7 +58,10 @@ const getOauth2RedditAccess = () => {
 // Create a function to get an access_token using the code returned from the getOauth2RedditAccess function
 const getAccessToken = async () => {
   // Retrieve the authorization_code from the getOauth2RedditAccess function
-  const code = getOauth2RedditAccess();
+  if (!sessionStorage.getItem('oauth2_')) {
+    const code = getOauth2RedditAccess();
+    sessionStorage.setItem('oauth2_', code.toString());
+  }
   // Provide a redirect path
   const redirectURI = 'http://localhost:3000/';
   
@@ -66,7 +70,7 @@ const getAccessToken = async () => {
   const encodedCredentials = Buffer.from(plainCredentials).toString('base64')
   
   // Store in a variable the string params with an interpolation of the right variables from above
-  let params = `grant_type=authorization_code&code=${code}&redirect_uri=${redirectURI}`;
+  let params = `grant_type=authorization_code&code=${sessionStorage.getItem('oauth2_')}&redirect_uri=${redirectURI}`;
   
   // Create settings for a POST request
   const settings = {
