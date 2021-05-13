@@ -1,32 +1,63 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { useInView } from 'react-intersection-observer';
 
 import './cards.css';
 import CardPost from '../card/CardPost';
-import { loadPosts, selectPosts, isLoadingPosts } from '../../redux/getRedditData/postsSlice';
-import { selectStoredSubreddit } from '../../redux/filters/subredditsFiltersSlice';
+import getRedditDataRequest from '../../helpers/API_requests/getRedditDataRequest';
+import { selectPosts, isLoadingPosts, addNextPosts } from '../../redux/getRedditData/postsSlice';
+import { selectStoredSubreddit, selectFilter } from '../../redux/filters/subredditsFiltersSlice';
 import { getSwitchState } from '../../redux/switch/switchSlice';
 
 const Cards = () => {
+  const [ref, inView] = useInView({
+    threshold: 0.8
+  })
+
   const dispatch = useDispatch();
   const posts = useSelector(selectPosts);
+  const postsKeysArray = posts.map(post => post.data.name)
+  const lastPostName = posts[posts.length - 1]?.data.name;
   const isLoading = useSelector(isLoadingPosts);
-  const switchStatus = useSelector(getSwitchState)
+  const switchStatus = useSelector(getSwitchState);
+  const filter = useSelector(selectFilter);
   let subreddit = useSelector(selectStoredSubreddit);
 
   if(subreddit.title === ""){
-    subreddit = {title: "YourTopPosts", icon: process.env.PUBLIC_URL + "/media/reddit_robot.png"}
+    subreddit = {title: "YourTopPosts", icon: process.env.PUBLIC_URL + "/media/reddit_robot.png"};
   }
-
-  useEffect(() => {
-    const values = {name: "", filter: "hot"}
-    dispatch(loadPosts(values));
-  },[dispatch])
   
+  useEffect(() => {
+    async function loadNextPosts() {
+
+      if(inView){
+        const loadingDiv = document.getElementById('load_posts');
+
+        loadingDiv.classList.add('load_posts');
+        
+        const url = subreddit.title === "YourTopPosts" ? "https://oauth.reddit.com" : `https://oauth.reddit.com/r/${subreddit.title}`;
+        let nextPosts = await getRedditDataRequest(url , filter, `limit=10&after=${lastPostName}`);
+
+        const cleanedPostsArray = nextPosts.data.children.filter(post => {
+          return !postsKeysArray.includes(post.data.name)
+        })
+        
+        setTimeout(() =>{
+          loadingDiv.classList.remove('load_posts');
+          dispatch(addNextPosts(cleanedPostsArray));
+        }, 1000)
+      }
+    }
+    loadNextPosts()
+  },[dispatch, inView, filter, lastPostName, subreddit.title, postsKeysArray])
+
+  // useEffect(() => {
+  //   const values = {name: "", filter: filter}
+  //   dispatch(loadPosts(values));
+  // },[dispatch, filter])
   
   return (
-    <div className="cards_container">
+    <div className="cards_container" inview={inView.toString()}>
       {isLoading ? (
         <>
           <div className="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
@@ -51,7 +82,8 @@ const Cards = () => {
                 key={`post_${post.data.id}`}
               />
             )
-          })} 
+          })}
+          <div ref={ref} id="load_posts"></div>
         </>
         )
       }
