@@ -5,14 +5,14 @@ import './sideBar.css';
 import { getSwitchState } from'../../redux/switch/switchSlice';
 import { loadPopularSubreddits, selectPopularSubreddits } from '../../redux/getRedditData/popularSubredditsSlice';
 import { loadPosts } from '../../redux/getRedditData/postsSlice';
-import { storeEndpoint } from '../../redux/filters/subredditsFiltersSlice';
+import { storeSubreddit, selectFilter } from '../../redux/filters/subredditsFiltersSlice';
 
 
 const SideBar = () => {
   const dispatch = useDispatch();
   const topSubreddits = useSelector(selectPopularSubreddits);
   const switchStatus = useSelector(getSwitchState);
-
+  const filter = useSelector(selectFilter);
   
   const toggleSideBar = () => {
     const sidebar = document.querySelector('#sidebar');  
@@ -27,11 +27,12 @@ const SideBar = () => {
     }
 
     const subreddit = target.dataset.subreddit;
-    const values = { name: subreddit, filter: "hot" }
+    const icon = target.dataset.icon;
+    const values = { name: subreddit, filter: filter };
     const sidebar = document.querySelector('#sidebar');
 
     dispatch(loadPosts(values));
-    dispatch(storeEndpoint(values.name));
+    dispatch(storeSubreddit({title: values.name, icon: icon}));
 
     sidebar.classList.remove('sidebar_open');
   }
@@ -55,7 +56,7 @@ const SideBar = () => {
         const {id, name, icon, keyColor} = subredditData;
 
         return (
-          <li key={id} onClick={handleClick} data-subreddit={topSubreddit.data.display_name}>
+          <li key={id} onClick={handleClick} data-subreddit={topSubreddit.data.display_name} data-icon={icon}>
             <img src={icon} style={{borderColor: keyColor}} id="subreddit_icon" alt=""/>
             <p>{name}</p>
           </li>
