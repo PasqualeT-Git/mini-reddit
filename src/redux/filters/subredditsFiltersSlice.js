@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   activeFilter: "hot",
-  storedEndpoint: ""
+  storedSubreddit: {title: "", icon: ""}
 }
 
 const subredditsFilterSlice = createSlice({
@@ -12,15 +12,15 @@ const subredditsFilterSlice = createSlice({
     changeFilter: (state, action) => {
       state.activeFilter = action.payload
     },
-    storeEndpoint:(state, action) => {
-      state.storedEndpoint = action.payload
+    storeSubreddit:(state, action) => {
+      state.storedSubreddit = action.payload
     }
   }
 })
 
-export const { changeFilter, storeEndpoint } = subredditsFilterSlice.actions;
+export const { changeFilter, storeSubreddit } = subredditsFilterSlice.actions;
 
 export const selectFilter = state => state.subredditsFilters.activeFilter;
-export const selectStoredEndpoint = state => state.subredditsFilters.storedEndpoint;
+export const selectStoredSubreddit = state => state.subredditsFilters.storedSubreddit;
 
 export default subredditsFilterSlice.reducer
