@@ -37,6 +37,25 @@
   grid-row-gap: 32px;
 }
 
+.cards_container #load_posts {
+  height: 60px;
+}
+
+#load_posts {
+  height: 60px;
+}
+
+.load_posts {
+  text-align: center;
+}
+
+.load_posts::after {
+  content: "Loading more posts...";
+  color: var(--primary-light);
+  font-size: 26px;
+  text-align: center;
+}
+
 .no_posts_loaded {
   display: flex;
   flex-direction: column;
