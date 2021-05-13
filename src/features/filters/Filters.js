@@ -42,9 +42,9 @@ const Filter = () => {
 
   useEffect(() => {
     const filtersContainer = document.querySelector(".filters_container");
-    const filtersArray = filtersContainer.childNodes
+    const filtersArray = filtersContainer?.childNodes
     
-    filtersArray.forEach(filter => {
+    filtersArray?.forEach(filter => {
       if(filter.id === filterStatus) {
         filter.dataset.active = "true"
       } else {

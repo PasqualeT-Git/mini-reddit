@@ -13,7 +13,9 @@ const getRedditDataRequest = async (endpoint = '', filter = 'hot', params = null
     headers: {'Authorization': `bearer ${sessionStorage.getItem("auth_token")}`}
   })
 
-  endpoint += `/${filter}.json`;
+  if(filter !== "") {
+    endpoint += `/${filter}.json`;
+  }
   
   if (endpoint.match(/\/r\/\/[a-z]+.json/)){
     endpoint = "/.json"
