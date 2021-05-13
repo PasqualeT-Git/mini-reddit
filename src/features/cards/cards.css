@@ -1,6 +1,37 @@
+.active_subreddit, .active_subreddit--dark {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 60%;
+  margin: 0 auto;
+  background-color: var(--secondary-light);
+  border-radius: 22px;
+  padding: 4px 11px;
+  box-shadow: 2px 3px 2px rgb(0 0 0 / 8%);
+  margin-bottom: 12px;
+}
+
+.active_subreddit--dark {
+  background-color: #4F4F64;
+  color: #fff;
+}
+
+.active_subreddit img, .active_subreddit--dark img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: contain;
+  background-color: #fff;
+  border: 0.5px solid;
+}
+
+.active_subreddit p, .active_subreddit--dark p{
+  font-family: var(--body-Libra);
+}
+
 .cards_container {
   position: relative;
-  top: 145px;
+  top: 138px;
   width: 83vw;
   display: grid;
   grid-row-gap: 32px;

@@ -3,24 +3,24 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import './filters.css';
 import { getSwitchState } from '../../redux/switch/switchSlice';
-import { changeFilter, selectFilter, selectStoredEndpoint } from '../../redux/filters/subredditsFiltersSlice';
+import { changeFilter, selectFilter, selectStoredSubreddit } from '../../redux/filters/subredditsFiltersSlice';
 import { loadPosts } from '../../redux/getRedditData/postsSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
   const switchStatus = useSelector(getSwitchState);
   const filterStatus = useSelector(selectFilter);
-  const endpoint = useSelector(selectStoredEndpoint);
-
+  const endpoint = useSelector(selectStoredSubreddit);
+  
   const handleClick = (e) => {
     let target = e.target;
-    const arrayFilters = document.querySelectorAll('.filter');
+    const filtersArray = document.querySelectorAll('.filter');
 
     if(e.target.nodeName === 'IMG') {
       target = e.target.parentElement
     }
 
-    arrayFilters.forEach(filter => {
+    filtersArray.forEach(filter => {
       if(filter.dataset.active === 'true'){
         filter.classList.remove('filter-active');
         filter.dataset.active = "false";
@@ -36,9 +36,22 @@ const Filter = () => {
   }
   
   useEffect(() => {
-    const values = { name: endpoint, filter: filterStatus  }
+    const values = { name: endpoint.title, filter: filterStatus  }
     dispatch(loadPosts(values))
   }, [dispatch, endpoint, filterStatus])
+
+  useEffect(() => {
+    const filtersContainer = document.querySelector(".filters_container");
+    const filtersArray = filtersContainer.childNodes
+    
+    filtersArray.forEach(filter => {
+      if(filter.id === filterStatus) {
+        filter.dataset.active = "true"
+      } else {
+        filter.dataset.active = "false"
+      }
+    })
+  })
 
   return (
     <div className={ switchStatus ? "filters_container--dark" : "filters_container" }>

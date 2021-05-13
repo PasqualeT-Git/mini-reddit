@@ -5,13 +5,14 @@ import { setSearchTerm, clearSearchTerm } from '../../redux/searchBar/searchBarS
 import { getSwitchState } from '../../redux/switch/switchSlice';
 import { loadPosts } from '../../redux/getRedditData/postsSlice';
 import { loadAutocompleteList, selectAutocompleteList, clearList } from '../../redux/getRedditData/autocompleteSubredditsListSlice';
-import { storeEndpoint } from '../../redux/filters/subredditsFiltersSlice';
+import { storeSubreddit, selectFilter } from '../../redux/filters/subredditsFiltersSlice';
 import './searchBar.css';
 
 const SearchBar = () => {
   const [ term, setTerm ] = useState("");
   const dispatch = useDispatch();
   const switchStatus = useSelector(getSwitchState);
+  const filter = useSelector(selectFilter);
   let autocompleteSubredditsList = useSelector(selectAutocompleteList);
 
   const onTypingHandler = (e) => {
@@ -20,12 +21,12 @@ const SearchBar = () => {
   }
 
   const onSearchHandler = (e) => {
-    const values = { name: term, filter: "hot" }
+    const values = { name: term, filter: filter }
     e.preventDefault();
 
     dispatch(setSearchTerm(term));
     dispatch(loadPosts(values));
-    dispatch(storeEndpoint(term))
+    dispatch(storeSubreddit({title: term, icon: ""}))
     
     setTimeout(() => {
       dispatch(clearList())
@@ -47,11 +48,12 @@ const SearchBar = () => {
     }
 
     const subreddit = target.parentElement.dataset.subreddit;
-    const values = { name: subreddit, filter: "hot"};
+    const icon = target.parentElement.dataset.icon;
+    const values = { name: subreddit, filter: filter};
     const modal = document.querySelector('#modal_mobile');
 
     dispatch(loadPosts(values));
-    dispatch(storeEndpoint(values.name));
+    dispatch(storeSubreddit({title: values.name, icon: icon}));
 
     setTimeout(() => {
       dispatch(clearList())
@@ -123,10 +125,12 @@ const SearchBar = () => {
                 <div className={autocompleteSubredditsList?.length > 0 ? 'drop_down_list' : ""}>
                   {autocompleteSubredditsList?.map(subreddit => {
                     if(subreddit.kind === 't5') {
+                      const icon = subreddit.data.icon_img ? subreddit.data.icon_img : subreddit.data.community_icon.split('?')[0] || process.env.PUBLIC_URL + '/media/reddit_icon.png';
+
                       return (
-                        <div key={`hint_${subreddit.data.id}`} onClick={onClickHandler} data-subreddit={subreddit.data.display_name}>
+                        <div key={`hint_${subreddit.data.id}`} onClick={onClickHandler} data-subreddit={subreddit.data.display_name} data-icon={icon}>
                           <div className="subreddit_hint">
-                            <img id="subreddit_icon" src={ subreddit.data.icon_img ? subreddit.data.icon_img : subreddit.data.community_icon.split('?')[0] || process.env.PUBLIC_URL + '/media/reddit_icon.png' } alt="" />
+                            <img id="subreddit_icon" src={icon} alt="" />
                             <p>{subreddit.data.display_name_prefixed}</p>
                           </div>
                           {subreddit !== autocompleteSubredditsList[autocompleteSubredditsList.length - 1] ? (
