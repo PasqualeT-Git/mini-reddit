@@ -20,6 +20,11 @@ const initialState = {
 const postsSlice = createSlice({
   name: 'posts',
   initialState: initialState,
+  reducers: {
+    addNextPosts: (state, action) => {
+      state.posts = state.posts.concat(action.payload);
+    }
+  },
   extraReducers: {
     [loadPosts.pending]: (state) => { state.isLoadingPosts = true;},
     [loadPosts.rejected]: (state) => { state.failedToLoadPosts = true;},
@@ -30,6 +35,8 @@ const postsSlice = createSlice({
     },
   }
 })
+
+export const { addNextPosts } = postsSlice.actions;
 
 export const isLoadingPosts = (state) => state.posts.isLoadingPosts;
 export const selectPosts = (state) => state.posts.posts;
