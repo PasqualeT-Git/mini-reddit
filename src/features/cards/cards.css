@@ -49,11 +49,18 @@
   text-align: center;
 }
 
-.load_posts::after {
-  content: "Loading more posts...";
+.load_posts::after, .no_more_posts::after  {
   color: var(--primary-light);
   font-size: 26px;
   text-align: center;
+}
+
+.load_posts::after {
+  content: "Loading more posts...";
+}
+
+.no_more_posts::after {
+  content: "No more posts...";
 }
 
 .no_posts_loaded {

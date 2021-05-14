@@ -16,11 +16,12 @@ const Cards = () => {
 
   const dispatch = useDispatch();
   const posts = useSelector(selectPosts);
-  const postsKeysArray = posts.map(post => post.data.name)
+  const postsKeysArray = posts.map(post => post.data.name);
   const lastPostName = posts[posts.length - 1]?.data.name;
   const isLoading = useSelector(isLoadingPosts);
   const switchStatus = useSelector(getSwitchState);
   const filter = useSelector(selectFilter);
+
   let subreddit = useSelector(selectStoredSubreddit);
 
   if(subreddit.title === ""){
@@ -45,17 +46,20 @@ const Cards = () => {
         setTimeout(() =>{
           loadingDiv.classList.remove('load_posts');
           dispatch(addNextPosts(cleanedPostsArray));
+
+          if (cleanedPostsArray.length <= 0){
+            loadingDiv.classList.add('no_more_posts');
+
+            setTimeout(() => {
+            loadingDiv.classList.remove('no_more_posts');
+            }, 1000)
+          }
         }, 1000)
       }
     }
     loadNextPosts()
   },[dispatch, inView, filter, lastPostName, subreddit.title, postsKeysArray])
 
-  // useEffect(() => {
-  //   const values = {name: "", filter: filter}
-  //   dispatch(loadPosts(values));
-  // },[dispatch, filter])
-  
   return (
     <div className="cards_container" inview={inView.toString()}>
       {isLoading ? (
@@ -79,6 +83,8 @@ const Cards = () => {
                 comments={post.data.num_comments}
                 date={post.data.created_utc}
                 id={post.data.id}
+                link={post.data.url_overridden_by_dest}
+                preview={post.data.preview}
                 key={`post_${post.data.id}`}
               />
             )
