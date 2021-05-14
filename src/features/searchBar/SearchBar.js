@@ -70,10 +70,15 @@ const SearchBar = () => {
       const buttonFireModal = document.getElementById('button--input-small');
       const span = document.getElementById("modal_close_button");
       
-      buttonFireModal.onclick = () => {modal.style.display = "block"};
+      buttonFireModal.onclick = () => {
+        document.body.style.overflow = "hidden";
+        modal.style.display = "block";
+      };
       span.onclick = () => {modal.style.display = "none"};
+
       window.onclick = (e) => {
         if (e.target === modal) {
+          document.body.style.overflow = "auto";
           modal.style.display = "none"
         }
       };
