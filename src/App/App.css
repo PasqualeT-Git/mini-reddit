@@ -63,3 +63,15 @@
   height: 300px;
   margin: 0 auto;
 }
+
+#logout_form {
+  margin-top: 25px;
+  margin-bottom: 0;
+  display: grid;
+  column-gap: 8px;
+  row-gap: 10px;
+  grid-template-areas:
+      "inputN . inputE"
+      "textArea textArea textArea"
+      "submit submit submit";
+}

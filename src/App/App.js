@@ -31,13 +31,13 @@ function App() {
         await getRedditDataRequest();
         setTimeout(() => {
           window.location.assign("http://localhost:3000/application")
-        },2500)
+        },2000)
       }
     })()
   })
 
   return (
-    <div>
+    <>
       {loadingApp ? (
         <>
           <NavBar login={true} />
@@ -48,38 +48,55 @@ function App() {
         </>
       ) : (
         <div className="wrapper">
-        {!window.location.href.match("/application") ? (
-            <>
-              <NavBar login={true} />
-              <div className={switchState ? "login_container--dark" : "login_container"}>
-                <div className="login_header">
-                  <img src={process.env.PUBLIC_URL + '/media/reddit_robot.png'} alt="" />
-                  <h1>Mini <span style={{color: "var(--primary-light)"}}>Reddit</span></h1>
+          <BrowserRouter>
+            <Switch>
+              <Route path="/application">
+                <NavBar />
+                <SideBar />
+                <Filters />
+                <Cards />
+              </Route>
+              <Route path="/goodbye">
+                <NavBar login={true} />
+                <div className={switchState ? "login_container--dark" : "login_container"}>
+                  <div className="login_header">
+                    <img src={process.env.PUBLIC_URL + '/media/reddit_robot.png'} alt="" />
+                    <h1>Mini <span style={{color: "var(--primary-light)"}}>Reddit</span></h1>
+                  </div>
+                  <p>Thank you for viisiting me! 🎉
+                    <br/><br/>If you have any suggestion, any report to do about this web app, if you like the project or you want just leave me a message.
+                    <br/><br/> Use the form below to drop an email and I will be in touch with you as soon as I can!
+                  </p>
+                  <form action="" style={{margin: "22px 0"}} id="logout_form">
+                    <input type="text" name="name" placeholder="Name" style={{gridArea: "inputN"}} required/>
+                    <input type="email" name="email" placeholder="Email" style={{gridArea: "inputE"}} required/>  
+                    <textarea rows="4" cols="40" placeholder="Your message here..." style={{gridArea: "textArea"}}></textarea>
+                    <button style={{marginTop: 12, gridArea: "submit"}}>submit</button>
+                  </form>
+                  <br/><br/> Thanks net surfer! 🙏🏻
+                  <button onClick={handleLogin} style={{width: "40%"}}>Login back</button>
                 </div>
-                <p>Hello, net surfer! 
-                  <br/><br/>Mini-Reddit is a ligther version of the more famous Reddit, and it has been builded as portfolio project, it doesn't have any commercial purpose.
-                  <br/><br/>It is a completely open project, and you can find the source code <a href="https://github.com/PasqualeT-Git/mini-reddit">here</a> .
-                  <br/><br/>In order to work, this web app has to comunicate with your Reddit’s account (Don’t worry, I can’t access to your password).
-                  <br/><br/>If you wish to continue, please click login and follow the steps in the next page.</p>
-                <button onClick={handleLogin}>Login</button>
-              </div>
-            </>
-          )
-         : undefined}
-        <BrowserRouter>
-          <Switch>
-            <Route path="/application">
-              <NavBar />
-              <SideBar />
-              <Filters />
-              <Cards />
-            </Route>
-          </Switch>
-        </BrowserRouter>
+              </Route >
+              <Route path="/">
+                <NavBar login={true} />
+                <div className={switchState ? "login_container--dark" : "login_container"}>
+                  <div className="login_header">
+                    <img src={process.env.PUBLIC_URL + '/media/reddit_robot.png'} alt="" />
+                    <h1>Mini <span style={{color: "var(--primary-light)"}}>Reddit</span></h1>
+                  </div>
+                  <p>Hello, net surfer! 
+                    <br/><br/>Mini-Reddit is a ligther version of the more famous Reddit, and it has been builded as portfolio project, it doesn't have any commercial purpose.
+                    <br/><br/>It is a completely open project, and you can find the source code <a href="https://github.com/PasqualeT-Git/mini-reddit">here</a> .
+                    <br/><br/>In order to work, this web app has to comunicate with your Reddit’s account (Don’t worry, I can’t access to your password).
+                    <br/><br/>If you wish to continue, please click login and follow the steps in the next page.</p>
+                  <button onClick={handleLogin}>Login</button>
+                </div>
+              </Route>
+            </Switch>
+          </BrowserRouter>
       </div>
       )}
-      
-    </div>
+    </>
   );
 }
 
