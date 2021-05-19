@@ -15,7 +15,15 @@ const SideBar = () => {
   const filter = useSelector(selectFilter);
   
   const toggleSideBar = () => {
-    const sidebar = document.querySelector('#sidebar');  
+    const sidebar = document.querySelector('#sidebar');
+    const logOff = document.querySelector('#log_off_button');
+
+    if (!sidebar.classList.contains('sidebar_open')) {
+      logOff.style.display = 'block'
+    } else {
+      logOff.style.display = 'none'
+    }
+
     sidebar.classList.toggle('sidebar_open');
   }
 
@@ -36,6 +44,10 @@ const SideBar = () => {
 
     sidebar.classList.remove('sidebar_open');
   }
+
+  const handleLogOut = () => {
+    sessionStorage.clear();
+  }
   
   useEffect(() =>{
     dispatch(loadPopularSubreddits());
@@ -44,7 +56,10 @@ const SideBar = () => {
 
   return (
     <div className={switchStatus ? "sidebar_container-dark--closed" : "sidebar_container--closed"} id='sidebar'>
-      <button onClick={toggleSideBar} ><img src={process.env.PUBLIC_URL + '/media/burger-button.svg'} alt="" id="burger_menu"/></button>
+      <div className="top_sidebar">
+        <button onClick={toggleSideBar}><img src={process.env.PUBLIC_URL + '/media/burger-button.svg'} alt="" id="burger_menu"/></button>
+        <a href="/goodbye" id="log_off_button" onClick={handleLogOut}><i className="fa fa-power-off"></i></a>
+      </div>
       {topSubreddits.map(topSubreddit => {
         const subredditData = {
           id: topSubreddit.data.id,
