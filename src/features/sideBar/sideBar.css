@@ -84,6 +84,20 @@
   .sidebar_open button img {
     left: 10% !important;
   }
+
+  .top_sidebar {
+    position: relative;
+  }
+
+  .top_sidebar #log_off_button {
+    display: none;
+    color: var(--primary-light);
+    font-size: 20px;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    animation: appear-p 0.7s;
+  }
 }
 
 @keyframes open-sidebar {
@@ -100,4 +114,9 @@
   0% { opacity:0; }
   80% { opacity: 0; }
   100% { opacity: 1; }
+}
+
+@keyframes appear-text {
+  from { transform: translate(0%); }
+  to   { transform: translate(-20%); }
 }
