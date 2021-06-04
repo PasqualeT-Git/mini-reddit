@@ -3,101 +3,99 @@
   list-style: none;
 }
 
-@media only screen and (max-width: 420px) {
-  .sidebar_container--closed, .sidebar_open {
-    background-color: var(--secondary-light);
-  }
+.sidebar_container--closed, .sidebar_open {
+  background-color: var(--secondary-light);
+}
 
-  .sidebar_container-dark--closed {
-    background-color: #4F4F64;
-  }
-  
-  .sidebar_container--closed, 
-  .sidebar_container-dark--closed {
-    position: fixed;
-    width: 54px;
-    border-radius: 20px 0 0 20px;
-    top: 70px;
-    right: 0;
-    animation: close-sidebar 0.2s cubic-bezier(0.04, 0.94, 0.24, 0.99);
-  }
+.sidebar_container-dark--closed {
+  background-color: #4F4F64;
+}
 
-  
-  .sidebar_container--closed li, 
-  .sidebar_container-dark--closed li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 17px 0;
-  }
-  
-  .sidebar_container--closed li img, 
-  .sidebar_container-dark--closed li img,
-  #subreddit_icon {
-    width: 42px;
-    border-radius: 50%;
-    border: 0.5px solid;
-  }
-  
-  .sidebar_container--closed li p, 
-  .sidebar_container-dark--closed li p {
-    display: none;
-  }
-  
-  .sidebar_container--closed button, 
-  .sidebar_container-dark--closed button{
-    border: none;
-    background-color: transparent;
-    margin-bottom: 45px;
-  }
-  
-  .sidebar_container--closed button #burger_menu, 
-  .sidebar_container-dark--closed button #burger_menu {
-    width: 24px;
-    position: absolute;
-    left: 25%;
-  }
+.sidebar_container--closed, 
+.sidebar_container-dark--closed {
+  position: fixed;
+  width: 54px;
+  border-radius: 20px 0 0 20px;
+  top: 70px;
+  right: 0;
+  animation: close-sidebar 0.2s cubic-bezier(0.04, 0.94, 0.24, 0.99);
+}
 
-  .sidebar_open {
-    width: 70%;
-    z-index: 10;
-    animation: open-sidebar 0.7s cubic-bezier(0.03, 0.85, 0.41, 0.98); 
-  }
 
-  .sidebar_open li {
-    flex-direction: row;
-    width: 90%;
-    margin: 16px auto;
-    justify-content: space-between;
-  }
+.sidebar_container--closed li, 
+.sidebar_container-dark--closed li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 17px 0;
+}
 
-  .sidebar_open li p {
-    display: block;
-    font-size: 18px;
-    animation: appear-p 0.7s cubic-bezier(0.03, 0.85, 0.41, 0.98);
-  }
+.sidebar_container--closed li img, 
+.sidebar_container-dark--closed li img,
+#subreddit_icon {
+  width: 42px;
+  border-radius: 50%;
+  border: 0.5px solid;
+}
 
-  .sidebar_container-dark--closed li p {
-    color: var(--text-dark);
-  }
+.sidebar_container--closed li p, 
+.sidebar_container-dark--closed li p {
+  display: none;
+}
 
-  .sidebar_open button img {
-    left: 10% !important;
-  }
+.sidebar_container--closed button, 
+.sidebar_container-dark--closed button{
+  border: none;
+  background-color: transparent;
+  margin-bottom: 45px;
+}
 
-  .top_sidebar {
-    position: relative;
-  }
+.sidebar_container--closed button #burger_menu, 
+.sidebar_container-dark--closed button #burger_menu {
+  width: 24px;
+  position: absolute;
+  left: 25%;
+}
 
-  .top_sidebar #log_off_button {
-    display: none;
-    color: var(--primary-light);
-    font-size: 20px;
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    animation: appear-p 0.7s;
-  }
+.sidebar_open {
+  width: 70%;
+  z-index: 10;
+  animation: open-sidebar 0.7s cubic-bezier(0.03, 0.85, 0.41, 0.98); 
+}
+
+.sidebar_open li {
+  flex-direction: row;
+  width: 90%;
+  margin: 16px auto;
+  justify-content: space-between;
+}
+
+.sidebar_open li p {
+  display: block;
+  font-size: 18px;
+  animation: appear-p 0.7s cubic-bezier(0.03, 0.85, 0.41, 0.98);
+}
+
+.sidebar_container-dark--closed li p {
+  color: var(--text-dark);
+}
+
+.sidebar_open button img {
+  left: 10% !important;
+}
+
+.top_sidebar {
+  position: relative;
+}
+
+.top_sidebar #log_off_button {
+  display: none;
+  color: var(--primary-light);
+  font-size: 20px;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  animation: appear-p 0.7s;
 }
 
 @keyframes open-sidebar {
@@ -119,4 +117,24 @@
 @keyframes appear-text {
   from { transform: translate(0%); }
   to   { transform: translate(-20%); }
+}
+
+@media only screen and (min-width: 481px) {
+  .sidebar_open {
+    width: 50%;
+  }
+
+  .sidebar_open button img {
+    left: 7% !important;
+}
+
+  @keyframes open-sidebar {
+    0% { width: 54px; }
+    80% { width: 50%; }
+  }
+
+  @keyframes close-sidebar {
+    0% { width: 50%; }
+    100% { width: 54px; }
+  }
 }
