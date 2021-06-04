@@ -53,8 +53,10 @@ function App() {
               <Route path="/application">
                 <NavBar />
                 <SideBar />
-                <Filters />
-                <Cards />
+                <div className="main_container">
+                  <Filters />
+                  <Cards />
+                </div>
               </Route>
               <Route path="/goodbye">
                 <NavBar login={true} />
@@ -76,6 +78,14 @@ function App() {
                   <br/><br/> Thanks net surfer! 🙏🏻
                   <button onClick={handleLogin} style={{width: "40%"}}>Login back</button>
                 </div>
+              </Route >
+              <Route path="/refresh">
+                <NavBar login={true} />
+                <div className="loading_app">
+                  <div className="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                  <p id="loading">Please wait...</p>
+                </div>
+                {setTimeout(window.location.href.includes('refresh') && handleLogin)}
               </Route >
               <Route path="/">
                 <NavBar login={true} />
