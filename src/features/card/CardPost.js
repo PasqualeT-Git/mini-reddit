@@ -140,7 +140,7 @@ const CardPost = ({ups, title, author, content, comments, date, id, link, previe
       <div className="post_content" id={`post_${id}`}>
         <h4 onClick={ handleRedirect }>{title}</h4>
         <p id="post_txt" onClick={ handleRedirect }>{ content && content }</p>
-        <a href ="" onClick={handleShowMore} id="read_more">read more...</a>
+        <a href ="#1" onClick={handleShowMore} id="read_more">read more...</a>
         {link && <a href={link} target="_blank" rel="noreferrer">{link.slice(0, 24)}...  <i className="fa fa-external-link" style={{fontSize: 12}}></i></a>}
         {preview?.enabled && <div className="image_container">
           <img src={image.url.replace('amp;', '')} alt=""  onClick={handleImageClick}/>

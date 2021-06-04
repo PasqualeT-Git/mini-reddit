@@ -21,6 +21,12 @@ function App() {
     document.body.style = "background: #fff"
   }
 
+  const handleRefresh = async () => {
+    setTimeout(() => {
+      window.location.assign("http://localhost:3000/application")
+    }, 2000)
+  }
+
   const handleLogin = async () => {
     await getRedditDataRequest();
   }
@@ -83,9 +89,9 @@ function App() {
                 <NavBar login={true} />
                 <div className="loading_app">
                   <div className="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-                  <p id="loading">Please wait...</p>
+                  <p id="loading">We need to refresh your access key...</p>
                 </div>
-                {setTimeout(window.location.href.includes('refresh') && handleLogin)}
+                {window.location.href.includes('refresh') && handleRefresh()}
               </Route >
               <Route path="/">
                 <NavBar login={true} />

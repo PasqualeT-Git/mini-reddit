@@ -56,7 +56,7 @@ const getOauth2RedditAccess = () => {
 }
 
 // Create a function to get an access_token using the code returned from the getOauth2RedditAccess function
-const getAccessToken = async () => {
+const getAccessToken = async (refreshToken = null) => {
   // Retrieve the authorization_code from the getOauth2RedditAccess function
   if (!sessionStorage.getItem('oauth2_')) {
     const code = getOauth2RedditAccess();
@@ -71,6 +71,10 @@ const getAccessToken = async () => {
   
   // Store in a variable the string params with an interpolation of the right variables from above
   let params = `grant_type=authorization_code&code=${sessionStorage.getItem('oauth2_')}&redirect_uri=${redirectURI}`;
+
+  if (refreshToken) {
+    params = `grant_type=refresh_token&refresh_token=${refreshToken}`
+  }
   
   // Create settings for a POST request
   const settings = {
