@@ -17,7 +17,7 @@ const Cards = () => {
   const dispatch = useDispatch();
   const posts = useSelector(selectPosts);
   const postsKeysArray = posts.map(post => post.data.name);
-  const lastPostName = posts[posts.length - 1]?.data.name;
+  const lastPostName = postsKeysArray[postsKeysArray.length -1];
   const isLoading = useSelector(isLoadingPosts);
   const switchStatus = useSelector(getSwitchState);
   const filter = useSelector(selectFilter);
@@ -37,7 +37,7 @@ const Cards = () => {
         loadingDiv.classList.add('load_posts');
         
         const url = subreddit.title === "YourTopPosts" ? "https://oauth.reddit.com" : `https://oauth.reddit.com/r/${subreddit.title}`;
-        let nextPosts = await getRedditDataRequest(url , filter, `limit=10&after=${lastPostName}`);
+        const nextPosts = await getRedditDataRequest(url , filter, `limit=10&after=${lastPostName}`);
 
         const cleanedPostsArray = nextPosts.data.children.filter(post => {
           return !postsKeysArray.includes(post.data.name)
@@ -51,8 +51,8 @@ const Cards = () => {
             loadingDiv.classList.add('no_more_posts');
 
             setTimeout(() => {
-            loadingDiv.classList.remove('no_more_posts');
-            }, 1000)
+             loadingDiv.classList.remove('no_more_posts');
+            }, 2000)
           }
         }, 1000)
       }
@@ -85,6 +85,7 @@ const Cards = () => {
                 id={post.data.id}
                 link={post.data.url_overridden_by_dest}
                 preview={post.data.preview}
+                url = {post.data.url}
                 key={`post_${post.data.id}`}
               />
             )
