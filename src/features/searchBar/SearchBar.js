@@ -65,7 +65,7 @@ const SearchBar = () => {
   useEffect(() => {
     const screenWidth = document.documentElement.clientWidth;
 
-    if (screenWidth < 420) {
+    if (screenWidth < 480) {
       const modal = document.getElementById('modal_mobile');
       const buttonFireModal = document.getElementById('button--input-small');
       const span = document.getElementById("modal_close_button");
@@ -88,11 +88,12 @@ const SearchBar = () => {
   return (
     <>
       <div className={switchStatus ? "dark-theme" : ""}>
-        {document.documentElement.clientWidth > 420 ? (
-          <form onSubmit={onSearchHandler}>
+        {document.documentElement.clientWidth > 480 ? (
+          <form onSubmit={onSearchHandler} id="search_form">
             <input 
               id="search_term"
-              type="text" 
+              type="text"
+              className="input--primary"
               defaultValue={term}
               onChange={onTypingHandler}
             />
