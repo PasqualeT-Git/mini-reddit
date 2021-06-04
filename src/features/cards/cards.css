@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: space-evenly;
   width: 60%;
+  max-width: 220px;
   margin: 0 auto;
   background-color: var(--secondary-light);
   border-radius: 22px;
