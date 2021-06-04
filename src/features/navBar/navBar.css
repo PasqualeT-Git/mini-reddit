@@ -21,6 +21,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 6px;
 }
 
 #logo-title {
@@ -44,7 +45,11 @@ nav {
   width: 16px;
 }
 
-@media only screen and (max-width: 420px) {
+@media only screen and (max-width: 480px) {
+  .logo-container {
+    margin-bottom: 0;
+  }
+
   #logo-title {
     font-size: 16px;
   }
