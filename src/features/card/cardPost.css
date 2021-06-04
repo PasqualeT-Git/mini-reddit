@@ -16,11 +16,13 @@
 .card_container, .card_container--dark {
   padding: 8px;
   width: 80vw;
+  max-width: 600px;
   position: relative;
   height: 200px;
   word-wrap: break-word;
   border-radius: 24px 0 0 24px;
   margin-left: 8px;
+  margin: 0 auto;
   box-shadow: 2px 3px 2px rgb(0 0 0 / 8%);
 }
 
@@ -44,7 +46,8 @@
 
 .author {
   position: absolute;
-  right: 7px;
+  right: 6%;
+  top: 6%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -63,10 +66,6 @@
   width: 85%;
   left: 8%;
   top: 30%;
-}
-
-.post_content p {
-  display: none;
 }
 
 .post_content a {
@@ -103,4 +102,23 @@
   position: absolute;
   bottom: 5%;
   right: 3%;
+}
+
+#post_txt {
+  font-size: 14px;
+}
+
+#read_more {
+  display: none;
+  color: blue;
+}
+
+.card_container--dark a {
+  color: var(--primary-dark);
+}
+
+@media only screen and (min-width: 481px) {
+  .post_content p {
+    display: block;
+  }
 }
