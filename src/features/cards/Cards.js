@@ -30,11 +30,12 @@ const Cards = () => {
   
   useEffect(() => {
     async function loadNextPosts() {
+      let noMorePosts = false; 
+      const loadingDiv = document.getElementById('load_posts');
 
-      if(inView){
-        const loadingDiv = document.getElementById('load_posts');
+      if(inView && !noMorePosts){
 
-        loadingDiv.classList.add('load_posts');
+        loadingDiv?.classList.add('load_posts');
         
         const url = subreddit.title === "YourTopPosts" ? "https://oauth.reddit.com" : `https://oauth.reddit.com/r/${subreddit.title}`;
         const nextPosts = await getRedditDataRequest(url , filter, `limit=10&after=${lastPostName}`);
@@ -44,21 +45,35 @@ const Cards = () => {
         })
         
         setTimeout(() =>{
-          loadingDiv.classList.remove('load_posts');
+          loadingDiv?.classList.remove('load_posts');
           dispatch(addNextPosts(cleanedPostsArray));
 
           if (cleanedPostsArray.length <= 0){
             loadingDiv.classList.add('no_more_posts');
+            noMorePosts = true;
 
             setTimeout(() => {
-             loadingDiv.classList.remove('no_more_posts');
+              loadingDiv.classList.remove('no_more_posts');
+              loadingDiv.style.display = 'none';
+              loadingDiv.previousElementSibling.style.marginBottom = '40px'
             }, 2000)
           }
         }, 1000)
       }
+      
+      if(noMorePosts) {
+        loadingDiv.style.display = 'none';
+        loadingDiv.previousElementSibling.style.marginBottom = '40px'
+      }
     }
     loadNextPosts()
   },[dispatch, inView, filter, lastPostName, subreddit.title, postsKeysArray])
+
+  useEffect(() => {
+    if (posts.length === 0 && !isLoading) {
+      document.getElementById('load_posts').style.display = 'none'
+    }
+  })
 
   return (
     <div className="cards_container" inview={inView.toString()}>
@@ -95,10 +110,10 @@ const Cards = () => {
         )
       }
         {posts.length === 0 && !isLoading ? (
-            <div className="no_posts_loaded">
-              <img src={process.env.PUBLIC_URL + '/media/no_posts_image.png'} id="no_posts_image" alt=""/>
-              <p>No posts available....</p><br/><p>sorry!</p>
-            </div>
+          <div className="no_posts_loaded">
+            <img src={process.env.PUBLIC_URL + '/media/no_posts_image.png'} id="no_posts_image" alt=""/>
+            <p>No posts available....</p><br/><p>sorry!</p>
+          </div>
           ) : undefined 
         }
     </div>

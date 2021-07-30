@@ -46,7 +46,7 @@
 
 .author {
   position: absolute;
-  right: 6%;
+  right: 3%;
   top: 6%;
   display: flex;
   align-items: center;
@@ -91,8 +91,8 @@
 .comments {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  width: 60px;
+  justify-content: space-between;
+  width: 38px;
   position: absolute;
   bottom: 6%;
   left: 6%;

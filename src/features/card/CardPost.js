@@ -112,7 +112,16 @@ const CardPost = ({ups, title, author, content, comments, date, id, link, previe
       let userIcon = process.env.PUBLIC_URL + 'media/reddit_icon.png';
       
       if(author !== "[deleted]") {
-        const response = await axios.get(`/user/${author}/about.json`);
+        const response = await axios(`https://reddit.com/user/${author}/about.json`, {
+          headers: {  "Access-Control-Allow-Origin": "www.reddit.com",
+                      'Access-Control-Allow-Methods' : 'GET',
+                      'Access-Control-Allow-Headers' : 'Content-Type',
+                      'Access-Control-Max-Age' : 86400}
+        });
+        
+        console.log(response)
+        console.log(axios.defaults)
+
         const userDataIcon = response.data.data.icon_img
         userIcon = userDataIcon?.split('?')[0];
       }

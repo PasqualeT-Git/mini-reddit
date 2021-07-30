@@ -9,7 +9,7 @@ const getOauth2RedditAccess = () => {
   // create a unique and random string 
   const state = `request_${uuidv4()}`;
   // provide a redirect path 
-  const redirectURI = 'http://localhost:3000/';
+  const redirectURI = 'https://minireddit.com/';
   // create a string of scopes 
   const scopes = 'identity,mysubreddits,read,vote,subscribe,save,edit';
   
@@ -50,7 +50,6 @@ const getOauth2RedditAccess = () => {
     }
 
     // Throw an error if state from params and state from local storage don't match
-    console.log('no match');
     throw new Error("The state returned from params doesn't match the one in local")
   }
 }
@@ -63,7 +62,7 @@ const getAccessToken = async (refreshToken = null) => {
     sessionStorage.setItem('oauth2_', code.toString());
   }
   // Provide a redirect path
-  const redirectURI = 'http://localhost:3000/';
+  const redirectURI = 'https://minireddit.com/';
   
   // Create an encoded (base64) string from the CLIENT_ID and SECRET_ID credentials
   const plainCredentials = CLIENT_ID + ':' + SECRET_KEY;

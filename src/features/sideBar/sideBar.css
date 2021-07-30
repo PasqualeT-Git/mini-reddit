@@ -122,6 +122,7 @@
 @media only screen and (min-width: 481px) {
   .sidebar_open {
     width: 50%;
+    max-width: 340px;
   }
 
   .sidebar_open button img {
@@ -136,5 +137,40 @@
   @keyframes close-sidebar {
     0% { width: 50%; }
     100% { width: 54px; }
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .sidebar_open {
+    width: 20%;
+    height: 89%;
+    overflow-y: scroll;
+    min-width: 300px;
+  }
+
+  .top_sidebar {
+    height: 125px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .sidebar_open::-webkit-scrollbar {
+    display: none;
+  }
+
+  #search_form #search_term {
+    width: 18vw;
+  }
+
+  .subreddit_tile {
+    width: 100% !important;
+    margin: unset !important;
+    padding: 16px;
+  }
+
+  .subreddit_tile:hover {
+    background-color: var(--primary-light);
+    cursor: pointer;
   }
 }

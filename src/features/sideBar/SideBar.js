@@ -5,7 +5,7 @@ import './sideBar.css';
 import { getSwitchState } from'../../redux/switch/switchSlice';
 import { loadPopularSubreddits, selectPopularSubreddits } from '../../redux/getRedditData/popularSubredditsSlice';
 import { loadPosts } from '../../redux/getRedditData/postsSlice';
-import { storeSubreddit, selectFilter } from '../../redux/filters/subredditsFiltersSlice';
+import { storeSubreddit, selectFilter, selectStoredSubreddit } from '../../redux/filters/subredditsFiltersSlice';
 
 
 const SideBar = () => {
@@ -13,7 +13,9 @@ const SideBar = () => {
   const topSubreddits = useSelector(selectPopularSubreddits);
   const switchStatus = useSelector(getSwitchState);
   const filter = useSelector(selectFilter);
-  
+
+  let subreddit = useSelector(selectStoredSubreddit);
+
   const toggleSideBar = () => {
     const sidebar = document.querySelector('#sidebar');
     const logOff = document.querySelector('#log_off_button');
@@ -36,11 +38,12 @@ const SideBar = () => {
 
     const subreddit = target.dataset.subreddit;
     const icon = target.dataset.icon;
+    const backgroundImg = target.dataset.bckgimage;
     const values = { name: subreddit, filter: filter };
     const sidebar = document.querySelector('#sidebar');
-
+  
     dispatch(loadPosts(values));
-    dispatch(storeSubreddit({title: values.name, icon: icon}));
+    dispatch(storeSubreddit({title: values.name, icon: icon, bckgImage: backgroundImg}));
 
     sidebar.classList.remove('sidebar_open');
   }
@@ -49,6 +52,25 @@ const SideBar = () => {
     sessionStorage.clear();
   }
   
+  useEffect(() => {
+    if(window.innerWidth >= 1200){
+      const sidebar = document.querySelector('#sidebar');
+      const button = document.querySelector('#burger_menu').parentElement;
+      const topSidebar = sidebar.children[0];
+
+      let backgroundImg = subreddit.bckgImage?.split('?')[0] ?? process.env.PUBLIC_URL + 'media/reddit_bckimg.jpg';
+
+      if ( backgroundImg === "" ) { 
+        backgroundImg = process.env.PUBLIC_URL + 'media/reddit_bckimg.jpg';
+      }
+
+      button.style.display = "none";
+      sidebar.style.animation = "none";
+      sidebar.classList.add('sidebar_open');
+      topSidebar.style.backgroundImage = `url(${backgroundImg})`
+    }
+  })
+
   useEffect(() =>{
     dispatch(loadPopularSubreddits());
   },[dispatch])
@@ -71,7 +93,13 @@ const SideBar = () => {
         const {id, name, icon, keyColor} = subredditData;
 
         return (
-          <li key={id} onClick={handleClick} data-subreddit={topSubreddit.data.display_name} data-icon={icon}>
+          <li key={id} 
+              onClick={handleClick}
+              className="subreddit_tile"
+              data-subreddit={topSubreddit.data.display_name} 
+              data-icon={icon} 
+              data-bckgimage={topSubreddit.data.banner_background_image}
+          >
             <img src={icon} style={{borderColor: keyColor}} id="subreddit_icon" alt=""/>
             <p>{name}</p>
           </li>
