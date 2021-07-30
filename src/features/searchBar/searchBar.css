@@ -121,6 +121,11 @@
             brightness(97%) contrast(98%) drop-shadow(0 0 3px #a2d3f6);
   }
 
+  .dark-theme #search_form #search_term {
+    caret-color: white;
+    color: white;
+  }
+
 /* Media queries breakpoint for mobile version */
   @media only screen and (max-width: 480px) {
     #search_term {
@@ -136,8 +141,13 @@
 
 
 /* Media queries breakpoint for tablet version */
-@media only screen and (max-width: 768px) {
-  
+@media only screen and (min-width: 768px) {
+  .drop_down_list {
+    width: 30%;
+    background-color: var(--text-dark);
+    top: 130%;
+    box-shadow: 3px 2px 4px rgb(0 0 0 / 10%);
+  }
 }
 
 

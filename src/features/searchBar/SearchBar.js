@@ -26,10 +26,11 @@ const SearchBar = () => {
 
     dispatch(setSearchTerm(term));
     dispatch(loadPosts(values));
-    dispatch(storeSubreddit({title: term, icon: ""}))
+    dispatch(storeSubreddit({title: term, icon: "", bckgImage: ""}))
     
     setTimeout(() => {
       dispatch(clearList())
+      setTerm('')
     },500)
   }
   
@@ -42,24 +43,28 @@ const SearchBar = () => {
 
   const onClickHandler = (e) => {
     let target = e.target;
-
-    if(e.target.nodeName === 'P' || e.target.nodeName === 'IMG'){
+    
+    if(target.nodeName === 'P' || target.nodeName === 'IMG'){
       target = e.target.parentElement
     }
-
+    
     const subreddit = target.parentElement.dataset.subreddit;
     const icon = target.parentElement.dataset.icon;
+    const backgroundImg = target.parentElement.dataset.bckgimage;
     const values = { name: subreddit, filter: filter};
     const modal = document.querySelector('#modal_mobile');
-
+    
     dispatch(loadPosts(values));
-    dispatch(storeSubreddit({title: values.name, icon: icon}));
-
+    dispatch(storeSubreddit({title: values.name, icon: icon, bckgImage: backgroundImg}));
+    
     setTimeout(() => {
       dispatch(clearList())
+      setTerm("")
     },500)
 
-    modal.style.display = 'none';
+    if (modal) {
+      modal.style.display = 'none';
+    }
   }
 
   useEffect(() => {
@@ -85,25 +90,51 @@ const SearchBar = () => {
     }
   },[])
 
+  useEffect(() => {
+    
+  })
+
   return (
     <>
       <div className={switchStatus ? "dark-theme" : ""}>
         {document.documentElement.clientWidth > 480 ? (
-          <form onSubmit={onSearchHandler} id="search_form">
-            <input 
-              id="search_term"
-              type="text"
-              className="input--primary"
-              defaultValue={term}
-              onChange={onTypingHandler}
-            />
-            <button 
-              onClick={onClearHandler}
-              className="button--primary-small"
-              id="button--input-small">
-              <img src={process.env.PUBLIC_URL + 'media/magnifying_icon.svg'}  alt=""/>
-            </button>
-          </form>
+          <>
+            <form onSubmit={onSearchHandler} id="search_form" autoComplete="off" >
+              <input 
+                id="search_term"
+                type="text"
+                className="input--primary"
+                value={term}
+                onChange={onTypingHandler}
+              />
+              <button 
+                onClick={onClearHandler}
+                className="button--primary-small"
+                id="button--input-small">
+                <img src={process.env.PUBLIC_URL + 'media/magnifying_icon.svg'}  alt=""/>
+              </button>
+            </form>
+            <div className={autocompleteSubredditsList?.length > 0 ? 'drop_down_list' : ""}>
+              {autocompleteSubredditsList?.map(subreddit => {
+                if(subreddit.kind === 't5') {
+                  const icon = subreddit.data.icon_img ? subreddit.data.icon_img : subreddit.data.community_icon.split('?')[0] || process.env.PUBLIC_URL + '/media/reddit_icon.png';
+
+                  return (
+                    <div key={`hint_${subreddit.data.id}`} onClick={onClickHandler} data-subreddit={subreddit.data.display_name} data-icon={icon} data-bckgimage={subreddit.data.banner_background_image}>
+                      <div className="subreddit_hint">
+                        <img id="subreddit_icon" src={icon} alt="" />
+                        <p>{subreddit.data.display_name_prefixed}</p>
+                      </div>
+                      {subreddit !== autocompleteSubredditsList[autocompleteSubredditsList.length - 1] ? (
+                        <hr style={{width: '30%', margin: '0 auto'}}/>
+                      ) : undefined}
+                    </div>
+                  )
+                }
+                return undefined
+              })}
+            </div>
+          </>
         ) : (
           <>
             <input 
@@ -113,7 +144,7 @@ const SearchBar = () => {
             />
             <div className='modal_container' id='modal_mobile'>
               <div className="modal-content">
-                <form onSubmit={onSearchHandler}>
+                <form onSubmit={onSearchHandler} autoComplete="off" >
                   <input 
                     className="input_light--secondary-medium"
                     type="text" 
@@ -134,7 +165,7 @@ const SearchBar = () => {
                       const icon = subreddit.data.icon_img ? subreddit.data.icon_img : subreddit.data.community_icon.split('?')[0] || process.env.PUBLIC_URL + '/media/reddit_icon.png';
 
                       return (
-                        <div key={`hint_${subreddit.data.id}`} onClick={onClickHandler} data-subreddit={subreddit.data.display_name} data-icon={icon}>
+                        <div key={`hint_${subreddit.data.id}`} onClick={onClickHandler} data-subreddit={subreddit.data.display_name} data-icon={icon} data-bckgimage={subreddit.data.banner_background_image}>
                           <div className="subreddit_hint">
                             <img id="subreddit_icon" src={icon} alt="" />
                             <p>{subreddit.data.display_name_prefixed}</p>
